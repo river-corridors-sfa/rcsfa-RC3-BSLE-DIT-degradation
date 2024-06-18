@@ -1,0 +1,20 @@
+---
+title: "DIC_Raw_Data_Digestion"
+author: "rbb xg"
+date: "2024-06-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Load Packages
+```{r}
+library(tidyverse)
+library(here)
+library(ggplot2)
+```
+Establish file path
+```{r}
+here::i_am("DIC_Raw_Data_Digestion/DIC_Raw_Data_Digestion")
+```
