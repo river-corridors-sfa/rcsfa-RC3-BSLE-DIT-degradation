@@ -24,22 +24,37 @@ Configure data
 short_DO <- DO %>%
   group_by(shortID,day) %>%
   pivot_longer(read1:read5) %>%
-  summarize(mean = mean(value,na.rm = T),
+  reframe(mean = mean(value,na.rm = T),
             sd = sd(value, na.rm=T),
-            shortID = shortID) %>%
+            shortID = shortID,
+            sampleID = sampleID) %>%
   unique()
 
-all_DO <- DO %>%
-  mutate(mean = apply(X = DO[,4:8],MARGIN = 1,FUN=mean)) %>%
-  mutate(sd = apply(X = DO[,4:8],MARGIN = 1,FUN=sd))
-
-#mutate(shortID = sub("DIT_0{1,6}_INC-([a-z]+{1,3})", "\\1", DO$sampleID))
-```
-Make graph!
-```{r}
 short_DO$shortID <- factor(short_DO$shortID, levels = c('FC1','FL1','BC1','BL1','SC1','SL1'))
-
+```
+Graph averaging all available samples each day:
+```{r}
 short_DO %>%
+  filter() %>%
+  ggplot(aes(x = day, y = mean, color = shortID)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.box = "horizontal", legend.title = element_blank()) +
+  xlab("Day") +
+  ylab("DO (ppm)") +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),width=0.2) +
+  geom_line() +
+  scale_color_brewer(palette="Dark2")
+```
+Graph only looking at the day 6 samples:
+```{r}
+short_DO %>%
+  filter(sampleID == "DIT_06_INC-BC1" | 
+           sampleID == "DIT_06_INC-BL1" | 
+           sampleID == "DIT_06_INC-FC1" | 
+           sampleID == "DIT_06_INC-FL1" | 
+           sampleID == "DIT_06_INC-SC1" | 
+           sampleID == "DIT_06_INC-SL1") %>%
   ggplot(aes(x = day, y = mean, color = shortID)) +
   geom_point() +
   theme_bw() +
