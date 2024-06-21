@@ -113,10 +113,6 @@ roomtemp <- 22
 crm_dic <- 202.4
 crm_salinity <- 3.330
 
-#find the difference in the points of interest for later use
-dslope <- slope1-slope2
-dintercept <- intercept1-intercept2
-dtime <- as.numeric(difftime(time2,time1, units="mins"))
 #calculate the CRM DIC (umol/L)
 crm_density <- (999.842594 + 0.06793952*roomtemp - 0.00909529*roomtemp^2 + 0.0001001685*roomtemp^3 -0.000001120083*roomtemp^4 +
 0.000000006536332*roomtemp^5 + (0.824493-0.0040899*roomtemp + 0.000076438*roomtemp^2 - 0.00000082467*roomtemp^3 +
