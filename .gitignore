@@ -47,3 +47,6 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+DIC/.DS_Store
+DIC/DIC_Raw_Data_Digestion/.DS_Store
+Anhydrosugars/.DS_Store
