@@ -23,17 +23,21 @@ It is an extremely messy template output, so first step is to bring that in, the
 
 ```{r import data}
 
-levo_raw <- read_csv("./Example_data/QuantCSV.csv", skip =1, skip_empty_rows = TRUE) %>%
-  rename(header = `200ppb.d`,
-         area = `...2`,
-         instrument = QQQ) %>%
+levo_raw <- read_csv("./Example_data/RC3_BSLE_Anhydrosugars_0001-0021.csv", skip =1, 
+                     col_names = c("header", "area", "file_path", "instrument")) %>%
   mutate(row_number = row_number())  # Add a row number for reference
 
 levo_raw_areas <- levo_raw %>%
-  mutate(is_levoglucosan = ifelse(str_detect(header, "Levoglucosan"), TRUE, FALSE)) %>%
+  mutate(is_levoglucosan = ifelse(str_detect(header, "Levoglucosan") & !str_detect(header, "13C-Levoglucosan"), TRUE, FALSE)) %>%
   filter(is_levoglucosan) %>% # Filter rows with "Levoglucosan" which is the rows with the areas
-  select(area, row_number, is_levoglucosan)
+  select(area, row_number, is_levoglucosan) %>%
+  rename(levoglucosan_area = area) 
 
+levo13C_raw_areas <- levo_raw %>%
+  mutate(is_13Clevoglucosan = ifelse(str_detect(header, "13C-Levoglucosan"), TRUE, FALSE)) %>%
+  filter(is_13Clevoglucosan) %>% # Filter rows with "Levoglucosan" which is the rows with the areas
+  select(area, row_number, is_13Clevoglucosan) %>%
+  rename(C13_levoglucosan_area = area) 
 
 sample_names <- levo_raw %>%
   select(header, row_number, instrument) %>%
@@ -43,10 +47,13 @@ sample_names <- levo_raw %>%
 
 levo_raw_data <- levo_raw_areas %>%
   full_join(sample_names, by= "row_number") %>%
+  full_join(levo13C_raw_areas, by= "row_number") %>%
   arrange(row_number) %>%
   fill(header, .direction = "down") %>%
-  filter(is_levoglucosan) %>%
-  select(header, area)
+  group_by(header) %>%
+  summarize_all(~ na.omit(.)[1]) %>%
+  select(header, levoglucosan_area,C13_levoglucosan_area) %>%
+  ungroup()
 
 ```
  transmute(target_row = row_number - n) %>% # Calculate target rows
