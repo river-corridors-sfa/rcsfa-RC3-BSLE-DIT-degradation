@@ -93,18 +93,18 @@ rsquared <- function(x, y, slope, intercept) {
 #you could try to make this iterate over a list, maybe even... a for loop?
 slope1 <- slope((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))  
 intercept1 <- intercept((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))
-rsquared1 <- rsquared((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope2,intercept2)
+rsquared1 <- rsquared((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope1,intercept1)
 time1 <- dic_crm5[3,3]
 
 slope2 <- slope((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))  
 intercept2 <- intercept((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))
-rsquared2 <- rsquared((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope3,intercept3)
+rsquared2 <- rsquared((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope2,intercept2)
 time2 <- dic_crm5[6,3]
 
 #find the difference in the points of interest for later use
-dslope <- slope2-slope3
-dintercept <- intercept2-intercept3
-dtime <- as.numeric(difftime(time3,time2, units="mins"))
+dslope <- slope1-slope2
+dintercept <- intercept1-intercept2
+dtime <- as.numeric(difftime(time2,time1, units="mins"))
 ```
 Now we analyze the data...
 ```{r}
@@ -165,5 +165,5 @@ dic_clean <- dic_clean %>%
 
 View things
 ```{r}
-View(area1)
+View(dic_clean)
 ```
