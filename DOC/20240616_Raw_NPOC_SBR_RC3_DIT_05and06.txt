@@ -1,0 +1,90 @@
+[Header]	
+System	9 mL TOC-L with TNM	
+S/W Version	1.00	
+User		
+Date/Time	6/26/2024 6:26:54 PM	
+
+[System]	
+Instrument Options	TOC/ASI/IC Unit/TN/Sparge Kit/	
+
+[Data]	
+Type	Anal.	Sample Name	Sample ID	Result(TOC)	Result(TC)	Result(IC)	Result(POC)	Result(NPOC)	Result(TN)	Unit	Vial	Date / Time	
+Unknown	NPOC/TN	CondBlank1	Untitled					0.000	0.000	mg/L	0	6/17/2024 11:43:40 AM	
+Unknown	NPOC/TN	CondBlank2	Untitled					0.000	0.000	mg/L	0	6/17/2024 12:03:54 PM	
+Unknown	NPOC/TN	CondBlank3	Untitled					0.000	0.000	mg/L	0	6/17/2024 12:23:31 PM	
+Unknown	NPOC/TN	CondBlank4	Untitled					0.000	0.000	mg/L	0	6/17/2024 12:42:23 PM	
+Unknown	NPOC/TN	CondBlank5	Untitled					0.000	0.000	mg/L	0	6/17/2024 1:02:54 PM	
+Unknown	NPOC/TN	CondBlank6	Untitled					0.000	0.000	mg/L	0	6/17/2024 1:21:30 PM	
+Unknown	NPOC/TN	CondBlank7	Untitled					0.000	0.000	mg/L	0	6/17/2024 1:39:30 PM	
+Unknown	NPOC/TN	CondBlank8	Untitled					0.000	0.000	mg/L	0	6/17/2024 1:57:26 PM	
+Unknown	NPOC/TN	CondBlank9	Untitled					0.000	0.000	mg/L	0	6/17/2024 2:11:22 PM	
+Unknown	NPOC/TN	CondBlank10	Untitled					0.000	0.000	mg/L	0	6/17/2024 2:27:41 PM	
+Unknown	NPOC/TN	CondBlank11	Untitled					0.000	0.000	mg/L	0	6/17/2024 4:27:06 PM	
+Unknown	NPOC/TN	CondBlank12	Untitled					0.000	0.000	mg/L	0	6/17/2024 4:46:55 PM	
+Unknown	NPOC/TN	CondBlank13	Untitled					0.000	0.000	mg/L	0	6/17/2024 5:02:49 PM	
+Unknown	NPOC	CondBlank1	Untitled					0.000		mg/L	1	6/17/2024 10:15:23 PM	
+Unknown	NPOC	CondBlank2	Untitled					0.000		mg/L	2	6/17/2024 10:35:53 PM	
+Unknown	NPOC	CondBlank3	Untitled					0.000		mg/L	3	6/17/2024 10:56:10 PM	
+Standard	NPOC	STD_0-10ppmNPOC	Untitled					10.00		mg/L	75, 4, 5, 6, 7, 8, 9, 10	6/18/2024 1:48:51 AM	
+Unknown	NPOC	Blank1	Untitled					0.2811		mg/L	11	6/18/2024 2:09:28 AM	
+Unknown	NPOC	CKSTD1-1ppmNPOC	Untitled					0.9893		mg/L	12	6/18/2024 2:31:19 AM	
+Unknown	NPOC	Blank2	Untitled					0.04317		mg/L	13	6/18/2024 2:51:23 AM	
+Unknown	NPOC	DIT_05_BC1	Untitled					2.617		mg/L	14	6/18/2024 3:11:02 AM	
+Unknown	NPOC	DIT_05_BC2	Untitled					2.563		mg/L	15	6/18/2024 3:30:33 AM	
+Unknown	NPOC	DIT_05_BC3	Untitled					2.501		mg/L	16	6/18/2024 3:53:09 AM	
+Unknown	NPOC	DIT_05_BL1	Untitled					2.215		mg/L	17	6/18/2024 4:15:56 AM	
+Unknown	NPOC	DIT_05_BL2	Untitled					2.010		mg/L	18	6/18/2024 4:34:38 AM	
+Unknown	NPOC	DIT_05_BL3	Untitled					2.011		mg/L	19	6/18/2024 4:56:49 AM	
+Unknown	NPOC	DIT_05_FC1	Untitled					2.285		mg/L	20	6/18/2024 5:19:35 AM	
+Unknown	NPOC	DIT_05_FC2	Untitled					2.127		mg/L	21	6/18/2024 5:38:29 AM	
+Unknown	NPOC	DIT_05_FC3	Untitled					2.300		mg/L	22	6/18/2024 6:01:31 AM	
+Unknown	NPOC	Blank3	Untitled					-0.4497		mg/L	23	6/18/2024 6:27:20 AM	
+Unknown	NPOC	CKSTD2-1ppmNPOC	Untitled					0.8384		mg/L	24	6/18/2024 6:49:34 AM	
+Unknown	NPOC	Blank4	Untitled					3.089		mg/L	25	6/18/2024 7:08:28 AM	
+Unknown	NPOC	DIT_05_FL1	Untitled					0.9537		mg/L	26	6/18/2024 7:30:36 AM	
+Unknown	NPOC	DIT_05_FL2	Untitled					0.9413		mg/L	27	6/18/2024 7:53:41 AM	
+Unknown	NPOC	DIT_05_FL3	Untitled					1.465		mg/L	28	6/18/2024 8:16:40 AM	
+Unknown	NPOC	DIT_05_SC1	Untitled					2.516		mg/L	29	6/18/2024 8:39:40 AM	
+Unknown	NPOC	DIT_05_SC2	Untitled					2.459		mg/L	30	6/18/2024 8:59:11 AM	
+Unknown	NPOC	DIT_05_SC3	Untitled					2.458		mg/L	31	6/18/2024 9:18:31 AM	
+Unknown	NPOC	DIT_05_SL1	Untitled					2.459		mg/L	32	6/18/2024 9:41:19 AM	
+Unknown	NPOC	DIT_05_SL2	Untitled					2.888		mg/L	33	6/18/2024 10:06:13 AM	
+Unknown	NPOC	DIT_05_SL3	Untitled					0.000		mg/L	34		
+Unknown	NPOC	Blank5	Untitled					0.000		mg/L	35		
+Unknown	NPOC	CKSTD3-1ppmNPOC	Untitled					0.000		mg/L	36		
+Unknown	NPOC	Blank6	Untitled					0.000		mg/L	37		
+Unknown	NPOC	DIT_06_BC1	Untitled					0.000		mg/L	38		
+Unknown	NPOC	DIT_06_BC2	Untitled					0.000		mg/L	39		
+Unknown	NPOC	DIT_06_BL1	Untitled					0.000		mg/L	40		
+Unknown	NPOC	DIT_06_BL2	Untitled					0.000		mg/L	41		
+Unknown	NPOC	DIT_06_BL3	Untitled					0.000		mg/L	42		
+Unknown	NPOC	DIT_06_FC1	Untitled					0.000		mg/L	43		
+Unknown	NPOC	DIT_06_FC2	Untitled					0.000		mg/L	44		
+Unknown	NPOC	Blank7	Untitled					0.000		mg/L	45		
+Unknown	NPOC	CKSTD4-1ppmNPOC	Untitled					0.000		mg/L	46		
+Unknown	NPOC	Blank8	Untitled					0.000		mg/L	47		
+Unknown	NPOC	DIT_06_FL1	Untitled					0.000		mg/L	48		
+Unknown	NPOC	DIT_06_FL2	Untitled					0.000		mg/L	49		
+Unknown	NPOC	DIT_06_SC1	Untitled					0.000		mg/L	50		
+Unknown	NPOC	DIT_06_SC2	Untitled					0.000		mg/L	51		
+Unknown	NPOC	DIT_06_SL1	Untitled					0.000		mg/L	52		
+Unknown	NPOC	DIT_06_SL2	Untitled					0.000		mg/L	53		
+Unknown	NPOC	Blank7	Untitled					0.000		mg/L	54		
+Unknown	NPOC	CKSTD4-1ppmNPOC	Untitled					0.000		mg/L	55		
+Unknown	NPOC	Blank8	Untitled					0.000		mg/L	56		
+Unknown	NPOC	CondBlank15	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank16	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank17	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank18	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank19	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank20	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank21	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank22	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank23	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank24	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank25	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank26	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank27	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank28	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank29	Untitled					0.000		mg/L	0		
+Unknown	NPOC	CondBlank30	Untitled					0.000		mg/L	0		
