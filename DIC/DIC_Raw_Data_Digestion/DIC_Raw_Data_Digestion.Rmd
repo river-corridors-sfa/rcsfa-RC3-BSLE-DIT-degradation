@@ -21,7 +21,7 @@ here::i_am("DIC_Raw_Data_Digestion/DIC_Raw_Data_Digestion.Rmd")
 ```
 load the data
 ```{r}
-dic_raw <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060424_EBSD_DIT_Day1_DIC.csv"),check.names = F)
+dic_raw <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061024_EBSD_DIT_Day7_DIC.csv"),check.names = F)
 ```
 Get the drift correction parameters!
 
@@ -158,7 +158,7 @@ dic_clean <- dic_clean %>%
 ```
 Write our new .csv
 ```{r}
-write.csv(dic_clean, here("DIC_Raw_Data_Digestion/Data_processed/06324_EBSD_DIT_Day1_DIC_processed.csv"), row.names=FALSE)
+write.csv(dic_clean, here("DIC_Raw_Data_Digestion/Data_processed/06324_EBSD_DIT_Day3_DIC_processed.csv"), row.names=FALSE)
 ```
 
 Archived code

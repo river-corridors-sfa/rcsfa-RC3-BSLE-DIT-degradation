@@ -1,0 +1,76 @@
+[Header]	
+System	9 mL TOC-L with TNM	
+S/W Version	1.00	
+User		
+Date/Time	6/26/2024 6:25:25 PM	
+
+[System]	
+Instrument Options	TOC/ASI/IC Unit/TN/Sparge Kit/	
+
+[Data]	
+Type	Anal.	Sample Name	Sample ID	Result(TOC)	Result(TC)	Result(IC)	Result(POC)	Result(NPOC)	Result(TN)	Unit	Vial	Date / Time	
+Unknown	NPOC/TN	CondBlank1	Untitled					0.1518	-0.1252	mg/L	1	6/5/2024 12:39:35 PM	
+Unknown	NPOC/TN	CondBlank2	Untitled					0.00523	-0.03069	mg/L	2	6/5/2024 1:01:19 PM	
+Unknown	NPOC/TN	CondBlank3	Untitled					0.01335	-0.1031	mg/L	3	6/5/2024 1:25:38 PM	
+Standard	NPOC	STD_0-10ppmNPOC	Untitled					10.00		mg/L	4, 5, 6, 7, 8, 9, 10, 11	6/5/2024 4:42:18 PM	
+Unknown	NPOC/TN	Blank 1	Untitled					-0.1463	0.000	mg/L	12	6/5/2024 5:02:49 PM	
+Standard	TN	STD_0-10ppmTN	Untitled						10.00	mg/L	13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23	6/5/2024 8:34:00 PM	
+Unknown	NPOC/TN	Blank 2	Untitled					-0.2443	7.396	mg/L	24	6/5/2024 8:59:36 PM	
+Unknown	NPOC/TN	CKSTD1-1ppmNPOC	Untitled					0.7431	8.544	mg/L	25	6/5/2024 9:22:46 PM	
+Unknown	NPOC/TN	Blank 3	Untitled					-0.1965	9.048	mg/L	26	6/5/2024 9:46:14 PM	
+Unknown	NPOC/TN	DIT_01_BC1	Untitled					5.192	-2396	mg/L	27	6/5/2024 10:13:47 PM	
+Unknown	NPOC/TN	DIT_01_BC2	Untitled					5.183	-2384	mg/L	28	6/5/2024 10:42:30 PM	
+Unknown	NPOC/TN	DIT_01_BC3	Untitled					5.633	-2412	mg/L	29	6/5/2024 11:11:35 PM	
+Unknown	NPOC/TN	DIT_01_BL1	Untitled					5.515	-2431	mg/L	30	6/5/2024 11:40:44 PM	
+Unknown	NPOC/TN	DIT_01_BL2	Untitled					5.147	-2338	mg/L	31	6/6/2024 12:08:24 AM	
+Unknown	NPOC/TN	DIT_01_BL3	Untitled					4.974	-2367	mg/L	32	6/6/2024 12:37:19 AM	
+Unknown	NPOC/TN	DIT_01_FC1	Untitled					5.233	-2422	mg/L	33	6/6/2024 1:01:03 AM	
+Unknown	NPOC/TN	DIT_01_FC2	Untitled					5.598	-2482	mg/L	34	6/6/2024 1:24:54 AM	
+Unknown	NPOC/TN	DIT_01_FC3	Untitled					5.299	-2477	mg/L	35	6/6/2024 1:48:44 AM	
+Unknown	NPOC/TN	Blank 4	Untitled					0.03782	5.738	mg/L	36	6/6/2024 2:14:40 AM	
+Unknown	NPOC/TN	CKSTD2-1ppmTN	Untitled					0.2856	-2.860	mg/L	37	6/6/2024 2:41:12 AM	
+Unknown	NPOC/TN	Blank 5	Untitled					-0.03191	6.773	mg/L	38	6/6/2024 3:04:47 AM	
+Unknown	NPOC/TN	DIT_01_FL1	Untitled					3.186	-2517	mg/L	39	6/6/2024 3:33:53 AM	
+Unknown	NPOC/TN	DIT_01_FL2	Untitled					5.253	-2478	mg/L	40	6/6/2024 3:57:37 AM	
+Unknown	NPOC/TN	DIT_01_FL3	Untitled					2.836	-2501	mg/L	41	6/6/2024 4:25:16 AM	
+Unknown	NPOC/TN	DIT_01_SC1	Untitled					5.093	-2315	mg/L	42	6/6/2024 4:54:33 AM	
+Unknown	NPOC/TN	DIT_01_SC2	Untitled					5.053	-2438	mg/L	43	6/6/2024 5:22:16 AM	
+Unknown	NPOC/TN	DIT_01_SC3	Untitled					5.068	-2381	mg/L	44	6/6/2024 5:51:31 AM	
+Unknown	NPOC/TN	DIT_01_SL1	Untitled					5.185	-2400	mg/L	45	6/6/2024 6:20:46 AM	
+Unknown	NPOC/TN	DIT_01_SL2	Untitled					5.305	-2376	mg/L	46	6/6/2024 6:52:34 AM	
+Unknown	NPOC/TN	DIT_01_SL3	Untitled					5.212	-2453	mg/L	47	6/6/2024 7:21:43 AM	
+Unknown	NPOC/TN	Blank 6	Untitled					0.01226	3.803	mg/L	48	6/6/2024 7:47:33 AM	
+Unknown	NPOC/TN	CKSTD3-5ppmNPOC	Untitled					4.865	6.533	mg/L	49	6/6/2024 8:16:11 AM	
+Unknown	NPOC/TN	Blank 7	Untitled					-0.00275	3.557	mg/L	50	6/6/2024 8:40:12 AM	
+Unknown	NPOC/TN	DIT_02_BC1	Untitled					5.068	-2368	mg/L	51	6/6/2024 9:09:23 AM	
+Unknown	NPOC/TN	DIT_02_BC2	Untitled					4.997	-2424	mg/L	52	6/6/2024 9:40:38 AM	
+Unknown	NPOC/TN	DIT_02_BC3	Untitled					4.345	-2489	mg/L	53	6/6/2024 10:09:44 AM	
+Unknown	NPOC/TN	DIT_02_BL1	Untitled					3.242	-2324	mg/L	54	6/6/2024 10:40:52 AM	
+Unknown	NPOC/TN	DIT_02_BL2	Untitled					3.254	-2472	mg/L	55	6/6/2024 11:11:48 AM	
+Unknown	NPOC/TN	DIT_02_BL3	Untitled					3.546	-2473	mg/L	56	6/6/2024 11:40:56 AM	
+Unknown	NPOC/TN	DIT_02_FC1	Untitled					3.414	-2351	mg/L	57	6/6/2024 12:08:36 PM	
+Unknown	NPOC/TN	DIT_02_FC2	Untitled					3.865	-2422	mg/L	58	6/6/2024 12:38:46 PM	
+Unknown	NPOC/TN	DIT_02_FC3	Untitled					3.847	-2501	mg/L	59	6/6/2024 1:06:30 PM	
+Unknown	NPOC/TN	Blank 8	Untitled					-0.2439	3.006	mg/L	60	6/6/2024 1:35:57 PM	
+Unknown	NPOC/TN	CKSTD4-10ppmTN	Untitled					-0.1196	-111.9	mg/L	61	6/6/2024 2:01:32 PM	
+Unknown	NPOC/TN	Blank 9	Untitled					-0.2107	8.519	mg/L	62	6/6/2024 2:25:15 PM	
+Unknown	NPOC/TN	DIT_02_FL1	Untitled					2.156	-2519	mg/L	63	6/6/2024 2:54:19 PM	
+Unknown	NPOC/TN	DIT_02_FL2	Untitled					1.957	-2581	mg/L	64	6/6/2024 3:21:43 PM	
+Unknown	NPOC/TN	DIT_02_FL3	Untitled					2.121	-2543	mg/L	65	6/6/2024 3:51:01 PM	
+Unknown	NPOC/TN	DIT_02_SC1	Untitled					3.650	-2365	mg/L	66	6/6/2024 4:14:45 PM	
+Unknown	NPOC/TN	DIT_02_SC2	Untitled					3.943	-2449	mg/L	67	6/6/2024 4:38:32 PM	
+Unknown	NPOC/TN	DIT_02_SC3	Untitled					3.732	-2492	mg/L	68	6/6/2024 5:07:52 PM	
+Unknown	NPOC/TN	DIT_02_SL1	Untitled					3.561	-2467	mg/L	69	6/6/2024 5:35:47 PM	
+Unknown	NPOC/TN	DIT_02_SL2	Untitled					3.858	-2547	mg/L	70	6/6/2024 6:05:10 PM	
+Unknown	NPOC/TN	DIT_02_SL3	Untitled					4.295	-2608	mg/L	71	6/6/2024 6:29:00 PM	
+Unknown	NPOC/TN	Blank 10	Untitled					-0.01526	-1.274	mg/L	72	6/6/2024 6:55:06 PM	
+Unknown	NPOC/TN	CKSTD5-1ppmNPOC	Untitled					0.9782	8.968	mg/L	73	6/6/2024 7:19:00 PM	
+Unknown	NPOC/TN	Blank 11	Untitled					-0.02918	6.803	mg/L	74	6/6/2024 7:42:32 PM	
+Unknown	NPOC/TN	Scott Creek	Untitled					1.160	-3.278	mg/L	75	6/6/2024 8:07:35 PM	
+Unknown	NPOC/TN	Sequim Bay	Untitled					0.8504	6.308	mg/L	76	6/6/2024 8:33:02 PM	
+Unknown	NPOC/TN	Douglas Fir Leachate df20	Untitled					3.417	-6.736	mg/L	77	6/6/2024 8:58:58 PM	
+Unknown	NPOC/TN	Blank 12	Untitled					0.09950	1.899	mg/L	78	6/6/2024 9:24:53 PM	
+Unknown	NPOC/TN	CKSTD6-10ppmTN	Untitled					0.08762	-82.36	mg/L	79	6/6/2024 9:53:44 PM	
+Unknown	NPOC/TN	Blank 13	Untitled					0.08707	3.100	mg/L	80	6/6/2024 10:19:07 PM	
+Unknown	NPOC/TN	Blank 14	Untitled					0.02461	3.575	mg/L	81	6/6/2024 10:44:53 PM	
+Unknown	NPOC/TN	Blank 15	Untitled					-0.08835	2.569	mg/L	82	6/6/2024 11:09:08 PM	
