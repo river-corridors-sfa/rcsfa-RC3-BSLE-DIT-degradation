@@ -4,6 +4,10 @@ author: "rbb xg"
 date: "2024-06-18"
 output: html_document
 ---
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 Load Packages
 ```{r}
 library(tidyverse)
@@ -13,6 +17,7 @@ library(ggplot2)
 Establish file path
 ```{r}
 here::i_am("DIC_Raw_Data_Digestion/DIC_Raw_Data_Digestion.Rmd")
+<<<<<<< Updated upstream
 ```
 load the data
 ```{r}
@@ -166,4 +171,40 @@ dic_clean <- dic_clean %>%
 View things
 ```{r}
 View(dic_clean)
+=======
+>>>>>>> Stashed changes
 ```
+Load Data
+```{r}
+DIC_day0 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060324_EBSD_DIT_Day0_DIC.csv"), check.names = FALSE)
+DIC_day1 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060424_EBSD_DIT_Day1_DIC.csv"), check.names = FALSE)
+DIC_day3 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060624_EBSD_DIT_Day3_DIC.csv"), check.names = FALSE)
+DIC_day7 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061024_EBSD_DIT_Day7_DIC.csv"), check.names = FALSE)
+DIC_day10 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061324_EBSD_DIT_Day10_DIC.csv"), check.names = FALSE)
+DIC_day14 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061724_EBSD_DIT_Day14_DIC.csv"), check.names = FALSE)
+```
+Cut Out Excess Columns
+```{r}
+DIC_day0 <- DIC_day0[ ,1:17]
+```
+Filter for Valid
+```{r}
+DIC_day0 <- DIC_day0 %>% 
+  filter(Status == "Valid")
+```
+Calibration Curves
+```{r}
+DIC_day0 <- DIC_day0 %>%
+  filter()
+```
+
+
+
+
+
+
+
+
+
+
+
