@@ -1,0 +1,69 @@
+---
+title: "DO_bioavail"
+output: html_document
+date: "2024-06-10"
+---
+
+```{r}
+library(tidyverse)
+library(here)
+library(readxl)
+library(ggplot2)
+library(RColorBrewer)
+```
+Establish path:
+```{r}
+here::i_am("DIT_DO/DIT_DO.Rmd")
+```
+Load data:
+```{r}
+DO <- read.csv(here("DIT_DO/data/DO_data.csv"))
+```
+Configure data
+```{r}
+short_DO <- DO %>%
+  group_by(shortID,day) %>%
+  pivot_longer(read1:read5) %>%
+  reframe(mean = mean(value,na.rm = T),
+            sd = sd(value, na.rm=T),
+            shortID = shortID,
+            sampleID = sampleID) %>%
+  unique()
+
+short_DO$shortID <- factor(short_DO$shortID, levels = c('FC1','FL1','BC1','BL1','SC1','SL1'))
+```
+Graph averaging all available samples each day:
+```{r}
+short_DO %>%
+  filter() %>%
+  ggplot(aes(x = day, y = mean, color = shortID)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.box = "horizontal", legend.title = element_blank()) +
+  xlab("Day") +
+  ylab("DO (ppm)") +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),width=0.2) +
+  geom_line() +
+  scale_color_brewer(palette="Dark2")
+```
+Graph only looking at the day 6 samples:
+```{r}
+short_DO %>%
+  filter(sampleID == "DIT_06_INC-BC1" | 
+           sampleID == "DIT_06_INC-BL1" | 
+           sampleID == "DIT_06_INC-FC1" | 
+           sampleID == "DIT_06_INC-FL1" | 
+           sampleID == "DIT_06_INC-SC1" | 
+           sampleID == "DIT_06_INC-SL1") %>%
+  ggplot(aes(x = day, y = mean, color = shortID)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.box = "horizontal", legend.title = element_blank()) +
+  xlab("Day") +
+  ylab("DO (ppm)") +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),width=0.2) +
+  geom_line() +
+  scale_color_brewer(palette="Dark2")
+```
+
+
