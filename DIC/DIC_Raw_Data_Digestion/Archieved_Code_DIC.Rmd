@@ -1,0 +1,175 @@
+---
+title: "DIC_Raw_Data_Digestion"
+author: "rbb xg"
+date: "2024-06-18"
+output: html_document
+---
+Load Packages
+```{r}
+library(tidyverse)
+library(here)
+library(ggplot2)
+```
+Establish file path
+```{r}
+here::i_am("DIC_Raw_Data_Digestion/DIC_Raw_Data_Digestion.Rmd")
+```
+load the data
+```{r}
+dic_raw_7 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061024_EBSD_DIT_Day7_DIC.csv"),check.names = F)
+
+dic_raw_0 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060324_EBSD_DIT_Day0_DIC.csv"), check.names = F)
+
+dic_raw_1 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060424_EBSD_DIT_Day1_DIC.csv"),check.names = F)
+
+dic_raw_3 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/060624_EBSD_DIT_Day3_DIC.csv"),check.names = F)
+
+dic_raw_10 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061324_EBSD_DIT_Day10_DIC.csv"),check.names = F)
+
+dic_raw_14 <- read.csv2(here("DIC_Raw_Data_Digestion/Data/061724_EBSD_DIT_Day14_DIC.csv"),check.names = F)
+
+```
+Get the drift correction parameters!
+
+Initial cleaning of the data, establish the dataframe dic_raw:
+```{r}
+#select the rows we're interested in
+dic_raw <- dic_raw[,1:17]
+#filter for the valid runs
+dic_raw <- dic_raw %>%
+  filter(Status == "Valid")
+#change the format of the time stamp to separate out the date and time
+dic_raw$Time <- format(as.POSIXct(dic_raw$"Start Time", format="%m/%d/%y %H:%M:%S"),"%H:%M:%S")
+dic_raw$Date <- format(as.POSIXct(dic_raw$"Start Time",format="%m/%d/%y %H:%M:%S"),"%m-%d-%y")
+dic_raw$"Start Time" <- format(as.POSIXct(dic_raw$"Start Time", format="%m/%d/%y %H:%M:%S"),"%Y-%m-%d %H:%M:%S")
+```
+Select the necessary data for finding the drift correction (ie the CRMs) and create data frames for analysis:
+```{r}
+#filter the sample for CRM runs (REQUIRES THAT ONLY CRM SAMPLES START WITH A C) and select the columns we'll be working with
+dic_crm <- dic_raw %>%
+  filter(str_detect(dic_raw$"Sample Name","^C")) %>%
+  select("Sample Name","Area (net avg)","Start Time","Sample # In Batch")
+
+#IF YOU DIDN'T RUN THE POST STANDARDS AS BATCHES: we need to do some extra work to get only the CRM timestamps we care about by selecting the single runs separately, then joining the pre and post crm dataframes. If you ran the post standards as a batch, ignore this step and just use the next step
+dic_post_crm <- dic_raw %>%
+  filter(str_detect(dic_raw$"Sample Name","^C")) %>%
+  select("Sample Name","Area (net avg)","Start Time","Sample # In Batch") %>%
+  filter(dic_crm$`Sample # In Batch` == "Single")
+
+#IF YOU DID OR DIDN'T RUN POST STANDARDS AS BATCHES: run this step to get every third timestamp for batch runs of CRMs. Depending on the number of batches, you will have to adjust the number you're selecting (could be all). Use this if you ran all your standards as batches, for the rest of the code to work change the name to dic_crm
+dic_pre_crm <- filter(dic_crm[1:18,], row_number() %% 3==1)
+
+#IF YOU DIDN'T RUN THE POST STANDARDS AS BATCHES: we now need to join the pre- and post- crm dataframes into one, and select the columns we care about
+dic_crm <- rbind(dic_pre_crm, dic_post_crm) %>%
+  select("Sample Name","Area (net avg)","Start Time")
+
+#IF YOU DID RUN THE POST STANDARDS AS BATCHES:select the columns we care about
+dic_crm <- dic_crm %>%
+  select("Sample Name","Area (net avg)","Start Time")
+
+#Assign the dataframe numbers and create a column for CRM runs, this will help if we have multiple dilutions
+dic_crm <- dic_crm %>%
+  mutate(funID = c(1:9)) %>%
+  mutate(areaID = ifelse(funID<=3, "area1",
+                         ifelse(funID>=4 & funID<=6, "area2",
+                                ifelse(funID>=7 & funID<=9, "area3",
+                                "area4"))))
+#change the net average column to numeric values (from characters)
+dic_crm$"Area (net avg)" <- lapply(dic_crm$"Area (net avg)", as.numeric)
+
+#filter for a specific dilution factor, in this case 5%. This will only work if the 5% is at the end of the CRM sample name
+dic_crm5 <- dic_crm %>%
+  filter(str_detect(dic_crm$"Sample Name","5%$"))
+```
+Find the dslope, dintercept, and dtime necessary for the drift correction:
+```{r}
+#create functions for the intercept, slope, and rsquared values
+intercept <- function(x, y) coef(lm(y ~ x))[[1]]
+slope <- function(x, y) coef(lm(y ~ x))[[2]]
+rsquared <- function(x, y, slope, intercept) {
+  # Calculate predicted y values based on x, slope and intercept
+  y_pred <- slope * x + intercept
+  # Calculate residuals
+  residuals <- y - y_pred
+  # Calculate total sum of squares
+  total_sum_of_squares <- sum((y - mean(y))^2)
+  # Calculate residual sum of squares
+  residual_sum_of_squares <- sum(residuals^2)
+  # Calculate R-squared
+  r2 <- 1 - (residual_sum_of_squares / total_sum_of_squares)
+  return(r2)
+}
+
+#Use those functions to find the values for each CRM run. Filter for each different CRM run (they should be noted by different areaIDs, as specified in the chunck above). Make sure to remember which slope and intercept go with the dilution and pre- post- crm run
+#you could try to make this iterate over a list, maybe even... a for loop?
+slope1 <- slope((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))  
+intercept1 <- intercept((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))
+rsquared1 <- rsquared((unlist(dic_crm%>%filter(areaID=="area2")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope1,intercept1)
+time1 <- dic_crm5[3,3]
+
+slope2 <- slope((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))  
+intercept2 <- intercept((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8))
+rsquared2 <- rsquared((unlist(dic_crm%>%filter(areaID=="area3")%>%select("Area (net avg)"))),c(1.2,1.5,1.8), slope2,intercept2)
+time2 <- dic_crm5[6,3]
+
+#find the difference in the points of interest for later use
+dslope <- slope1-slope2
+dintercept <- intercept1-intercept2
+dtime <- as.numeric(difftime(time2,time1, units="mins"))
+```
+Now we analyze the data...
+```{r}
+#assign the best estimate of the water temperature a value (degrees C)
+roomtemp <- 22
+crm_dic <- 202.4
+crm_salinity <- 3.330
+
+#calculate the CRM DIC (umol/L)
+crm_density <- (999.842594 + 0.06793952*roomtemp - 0.00909529*roomtemp^2 + 0.0001001685*roomtemp^3 -0.000001120083*roomtemp^4 +
+0.000000006536332*roomtemp^5 + (0.824493-0.0040899*roomtemp + 0.000076438*roomtemp^2 - 0.00000082467*roomtemp^3 +
+0.0000000053875*roomtemp^4)*crm_salinity + (-0.00572466 + 0.00010227*roomtemp - 0.0000016546*roomtemp^2)*crm_salinity^1.5 +
+0.00048314*crm_salinity^2)/1000
+crm_dic <- crm_dic*crm_density
+
+#make sure the values we care about are numeric so they can be used for later calculations
+dic_raw$"Area (net)" <- as.numeric(dic_raw$"Area (net)")
+dic_raw$"Volume (ml)" <- as.numeric(dic_raw$"Volume (ml)")
+
+#Some fixed values in the next chunk: the 2151.8 is the CRM DIC (umol/L) listed on the excel. Salinity is the known salinity, this code is specific to our project and our labeling scheme. Each line is separate because it relies on having the dataframe from the former line.
+#SEPARATE OUT MUTATE()
+dic_clean <- dic_raw %>%
+  select("Start Time","Sample Name","Volume (ml)","Area (net)") %>%
+  filter(!(grepl("CRM", `Sample Name`)))
+dic_clean <- dic_clean %>%  
+  mutate("CRM Volume (ml)" = (slope1*dic_clean$"Area (net)"+intercept1))
+dic_clean <- dic_clean %>%
+  mutate(Drift = (slope1+dslope*(as.numeric(difftime(dic_clean$"Start Time",time1, units="mins")))/dtime)*dic_clean$"Area (net)"+(intercept1+dintercept*(as.numeric(difftime(dic_clean$"Start Time",time1, units="mins")))/dtime))
+dic_clean <- dic_clean %>%
+  mutate("DIC Content (1x10-9 mol)" = (dic_clean$Drift*crm_dic))
+dic_clean <- dic_clean %>%
+  mutate("DIC (umol/L)" = (dic_clean$"DIC Content (1x10-9 mol)"/dic_clean$"Volume (ml)")) %>%
+  mutate("Rm Temp" = roomtemp) %>%
+  mutate(Salinity = ifelse(grepl("Sequim", `Sample Name`),3.3,
+                      ifelse(grepl("Scott", `Sample Name`),0,
+                        ifelse(grepl("B", `Sample Name`), 1.65,
+                           ifelse(grepl("S", `Sample Name`), 3.3,
+                                         0))))) 
+dic_clean <- dic_clean %>%
+  mutate("Density (kg/L)" = (999.842594 + 0.06793952*roomtemp - 0.00909529*roomtemp^2 + 0.0001001685*roomtemp^3 -0.000001120083*roomtemp^4 +
+0.000000006536332*roomtemp^5 + (0.824493-0.0040899*roomtemp + 0.000076438*roomtemp^2 - 0.00000082467*roomtemp^3 +
+0.0000000053875*roomtemp^4)*dic_clean$Salinity + (-0.00572466 + 0.00010227*roomtemp - 0.0000016546*roomtemp^2)*dic_clean$Salinity^1.5 +
+0.00048314*dic_clean$Salinity^2)/1000) 
+dic_clean <- dic_clean %>%
+  mutate("DIC' (umol/kg)" = (dic_clean$"DIC (umol/L)"/dic_clean$"Density (kg/L)"))
+```
+Write our new .csv
+```{r}
+write.csv(dic_clean, here("DIC_Raw_Data_Digestion/Data_processed/06324_EBSD_DIT_Day3_DIC_processed.csv"), row.names=FALSE)
+```
+
+Archived code
+```{r}
+dic_clean <- dic_clean %>%
+  filter(!(grepl("1-1", `Sample Name`))) %>%
+  group_by() #group by the sample names and find the standard deviation
+```
