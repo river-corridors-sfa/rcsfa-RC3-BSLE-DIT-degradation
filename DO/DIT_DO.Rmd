@@ -11,16 +11,22 @@ library(readxl)
 library(ggplot2)
 library(RColorBrewer)
 ```
-Establish path:
-```{r}
-here::i_am("DIT_DO/DIT_DO.Rmd")
-```
 Load data:
 ```{r}
-DO <- read.csv(here("DIT_DO/data/DO_data.csv"))
+DO <- read.csv(here("data/DO_data.csv"))
 ```
 Configure data
 ```{r}
+short_DO <- DO %>%
+  filter(str_detect(sampleID, "^DIT_06")) %>%
+  group_by(shortID,day) %>%
+  pivot_longer(read1:read5) %>%
+  unique()
+
+short_DO$shortID <- factor(short_DO$shortID, levels = c('FC1','FL1','BC1','BL1','SC1','SL1'))
+
+
+
 short_DO <- DO %>%
   group_by(shortID,day) %>%
   pivot_longer(read1:read5) %>%
@@ -28,14 +34,14 @@ short_DO <- DO %>%
             sd = sd(value, na.rm=T),
             shortID = shortID,
             sampleID = sampleID) %>%
-  unique()
+  unique() %>%
+  filter(str_detect(sampleID, "^DIT_06"))
 
 short_DO$shortID <- factor(short_DO$shortID, levels = c('FC1','FL1','BC1','BL1','SC1','SL1'))
 ```
 Graph averaging all available samples each day:
 ```{r}
 short_DO %>%
-  filter() %>%
   ggplot(aes(x = day, y = mean, color = shortID)) +
   geom_point() +
   theme_bw() +
@@ -48,22 +54,23 @@ short_DO %>%
 ```
 Graph only looking at the day 6 samples:
 ```{r}
+fit1 <- lm(value ~ day, data = short_DO%>%filter(shortID=="BC1")) 
+
 short_DO %>%
-  filter(sampleID == "DIT_06_INC-BC1" | 
-           sampleID == "DIT_06_INC-BL1" | 
-           sampleID == "DIT_06_INC-FC1" | 
-           sampleID == "DIT_06_INC-FL1" | 
-           sampleID == "DIT_06_INC-SC1" | 
-           sampleID == "DIT_06_INC-SL1") %>%
-  ggplot(aes(x = day, y = mean, color = shortID)) +
+  filter(day != 2 & shortID == "BC1") %>% #remove filter for BC1, day 2 removed becayse the reading wasn't 24 hrs from the first
+  ggplot(aes(x = day, y = value)) +
   geom_point() +
   theme_bw() +
+  #facet_wrap(vars(shortID)) +
   theme(legend.position = "bottom", legend.box = "horizontal", legend.title = element_blank()) +
   xlab("Day") +
   ylab("DO (ppm)") +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),width=0.2) +
-  geom_line() +
-  scale_color_brewer(palette="Dark2")
+  #scale_color_brewer(palette="Dark2") +
+  geom_smooth(method='lm', formula= y~x) +
+  geom_label(aes(x = 1, y = 6.5), hjust = 0, 
+             label = paste("Adj R2 = ",signif(summary(fit1)$adj.r.squared, 5),
+                                               "\nIntercept =",signif(fit1$coef[[1]],5 ),
+                                               " \nSlope =",signif(fit1$coef[[2]], 5)))
 ```
 
 
