@@ -109,7 +109,7 @@ dic_crm <- rbind(dic_pre_crm, dic_post_crm) %>%
  }
 
 else {
-#run this step to get every third time stamp for batch runs of CRMs. Depending on the number of batches, you will have to adjust the number you're selecting (could be all). 
+#run this step to get every third time stamp for batch runs of CRMs. 
 dic_crm <- dic_raw %>%
   filter(str_detect(`Sample Name`, "^C") & !str_detect(`Sample Name`, "junk"))
 dic_crm <- filter(dic_crm[1:27,], row_number() %% 3==1)

@@ -10,6 +10,7 @@ library(here)
 library(readxl)
 library(ggplot2)
 library(RColorBrewer)
+library(ggpubr)
 ```
 Load data:
 ```{r}
@@ -17,6 +18,9 @@ DO <- read.csv(here("data/DO_data.csv"))
 ```
 Configure data
 ```{r}
+#rename DO to DO_mg_per_L
+
+
 short_DO <- DO %>%
   filter(str_detect(sampleID, "^DIT_06")) %>%
   group_by(shortID,day) %>%
@@ -34,7 +38,7 @@ short_DO <- DO %>%
             sd = sd(value, na.rm=T),
             shortID = shortID,
             sampleID = sampleID) %>%
-  unique() %>%
+  unique() #%>%
   filter(str_detect(sampleID, "^DIT_06"))
 
 short_DO$shortID <- factor(short_DO$shortID, levels = c('FC1','FL1','BC1','BL1','SC1','SL1'))
@@ -57,20 +61,15 @@ Graph only looking at the day 6 samples:
 fit1 <- lm(value ~ day, data = short_DO%>%filter(shortID=="BC1")) 
 
 short_DO %>%
-  filter(day != 2 & shortID == "BC1") %>% #remove filter for BC1, day 2 removed becayse the reading wasn't 24 hrs from the first
-  ggplot(aes(x = day, y = value)) +
+  filter(day != 2) %>% #Day 2 removed b/c reading over 24 hrs apart
+  ggplot(aes(x = day, y = mean)) +
   geom_point() +
+  geom_smooth(method = "lm", formula = y~x, se = F)+
   theme_bw() +
-  #facet_wrap(vars(shortID)) +
+  facet_wrap(vars(shortID)) +
   theme(legend.position = "bottom", legend.box = "horizontal", legend.title = element_blank()) +
-  xlab("Day") +
-  ylab("DO (ppm)") +
-  #scale_color_brewer(palette="Dark2") +
-  geom_smooth(method='lm', formula= y~x) +
-  geom_label(aes(x = 1, y = 6.5), hjust = 0, 
-             label = paste("Adj R2 = ",signif(summary(fit1)$adj.r.squared, 5),
-                                               "\nIntercept =",signif(fit1$coef[[1]],5 ),
-                                               " \nSlope =",signif(fit1$coef[[2]], 5)))
+  labs(x = "Day", y = "DO (ppm)") +
+  stat_regline_equation(label.x.npc = 'center')
 ```
 
 
