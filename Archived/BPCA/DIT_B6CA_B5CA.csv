@@ -1,0 +1,40 @@
+Sample_ID,Treatment,Day,B6CA_micromol_per_liter,B5CA_micromol_per_liter,DBC_milligram_C_per_liter,B6CA_to_B5CA,DBC_to_NPOC_percent,Notes
+DIT_01_BC,Mixture_control,0,0.0342,0.1162,0.106349472,0.29435194,1.976625942,Combined replicates
+DIT_01_BL,Mixture_leachate,0,0.0352,0.1198,0.109318545,0.294357166,2.031995788,Combined replicates
+DIT_01_FC,Freshwater_control,0,0.0453,0.1226,0.117640312,0.369134608,2.21572892,Combined replicates
+DIT_01_FL,Freshwater_leachate,0,0.0239,0.0738,0.071594726,0.323461585,1.641962081,Combined replicates
+DIT_01_SC,Saltwater_control,0,0.0396,0.1266,0.116517992,0.312414515,2.29952005,Combined replicates
+DIT_01_SL,Saltwater_leachate,0,0.0369,0.1226,0.112169745,0.300692544,2.141424643,Combined replicates
+DIT_02_BC,Mixture_control,1,0.0337,0.1147,0.105045177,0.293480254,2.18729826,Combined replicates
+DIT_02_BL,Mixture_leachate,1,0.031,0.0983,0.092529527,0.315144817,2.765021926,Combined replicates
+DIT_02_FC,Freshwater_control,1,0.0304,0.1032,0.095356569,0.294663359,2.62269261,Combined replicates
+DIT_02_FL,Freshwater_leachate,1,0.0241,0.0766,0.073587427,0.315023271,3.54091841,Combined replicates
+DIT_02_SC,Saltwater_control,1,0.0309,0.1082,0.098947942,0.285268344,2.632494509,Combined replicates
+DIT_02_SL,Saltwater_leachate,1,0.032,0.1099,0.100817384,0.291637605,2.582589056,Combined replicates
+DIT_03_BC,Mixture_control,3,0.0419,0.1312,0.120980957,0.319669754,3.163223367,Combined replicates
+DIT_03_BL,Mixture_leachate,3,0.0399,0.1264,0.116616959,0.315941257,4.35465332,Combined replicates
+DIT_03_FC,Freshwater_control,3,0.0462,0.1423,0.130819091,0.324589467,4.639063452,Combined replicates
+DIT_03_FL,Freshwater_leachate,3,0.0274,0.0814,0.078982794,0.336500699,4.5972568,Combined replicates
+DIT_03_SC,Saltwater_control,3,0.0373,0.1191,0.110226936,0.313653026,3.790581005,Combined replicates
+DIT_03_SL,Saltwater_leachate,3,0.0386,0.1258,0.11542608,0.307026384,3.654643962,Combined replicates
+DIT_04_BC,Mixture_control,7,0.0371,0.1193,0.110209286,0.311180163,3.903564644,Combined replicates
+DIT_04_BL,Mixture_leachate,7,0.036,0.1146,0.106422675,0.313948702,4.391194305,Combined replicates
+DIT_04_FC,Freshwater_control,7,0.0392,0.1239,0.114547289,0.316499502,4.310309683,Combined replicates
+DIT_04_FL,Freshwater_leachate,7,0.0234,0.0727,0.070521265,0.321704545,4.127582036,Combined replicates
+DIT_04_SC,Saltwater_control,7,0.0345,0.1114,0.103419084,0.309988309,3.288443895,Combined replicates
+DIT_04_SL,Saltwater_leachate,7,0.0348,0.1098,0.10255557,0.317041403,4.034463505,Combined replicates
+DIT_05_BC,Mixture_control,10,0.0293,0.0933,0.088193785,0.314486402,4.048934472,Combined replicates
+DIT_05_BL,Mixture_leachate,10,0.0339,0.1033,0.097702698,0.327903739,5.101426561,Combined replicates
+DIT_05_FC,Freshwater_control,10,0.0397,0.1247,0.115339459,0.318168907,5.241624978,Combined replicates
+DIT_05_FL,Freshwater_leachate,10,0.0223,0.0687,0.067090122,0.325090278,5.461545577,Combined replicates
+DIT_05_SC,Saltwater_control,10,0.0337,0.1087,0.101119843,0.310236534,4.602420833,Combined replicates
+DIT_05_SL,Saltwater_leachate,10,0.0365,0.1157,0.107498435,0.315154508,4.62576163,Combined replicates
+DIT_06_BC,Mixture_control,14,0.0364,0.1178,0.10883665,0.30925191,5.070142194,Combined replicates
+DIT_06_BL,Mixture_leachate,14,0.0365,0.1119,0.105021627,0.3257332,5.839379094,Combined replicates
+DIT_06_FC,Freshwater_control,14,0.0392,0.1233,0.114127429,0.317799733,5.258093279,Combined replicates
+DIT_06_FL,Freshwater_leachate,14,0.0245,0.0731,0.071507622,0.334679572,5.480367877,Combined replicates
+DIT_06_SC,Saltwater_control,14,0.0361,0.1161,0.107477693,0.310703094,4.857821292,Combined replicates
+DIT_06_SL,Saltwater_leachate,14,0.0371,0.1179,0.1093168,0.314468329,4.801157387,Combined replicates
+Leachate,NA,NA,0.5711,1.8792,1.37616933,0.30388792,2.013709877,Combined replicates
+Scott Creek,NA,NA,0.0351,0.0873,0.088035153,0.401569774,7.589237294,Combined replicates
+Sequim Bay,NA,NA,0.0156,0.0488,0.048872583,0.320404072,5.747011172,Combined replicates
