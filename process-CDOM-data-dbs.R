@@ -1,5 +1,6 @@
 ## script used to process EEM's data with DOC data and generate exploratory plots 
   #written by Katie Wampler on 2024-11-05 
+#### only partially updated to run DBS data ######
 
 #section 0: load functions and libraries ------- 
   library(fewsdom) #to install run this code, remotes::install_github("katiewampler/fewsdom")
@@ -22,16 +23,16 @@ fix_na <- function(col){
 }
 
 #section 1: load data ----- 
-  setwd("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DIT/")
+  setwd("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DBS/")
   save_loc <- "EEM"
-  meta <- read.csv("DIT_Metadata.csv")
-  doc <- read.csv("NPOC_TN/DIT_NPOC_TN_Merged_on_2024-10-02_by_gara009.csv")
+  meta <- read_excel("DBS_Metadata.xlsx")
+  doc <- read.csv("NPOC_TN/DBS_NPOC_TN_Merged_on_2024-10-02_by_gara009.csv")
 
   #load raw EEM's data (we'll put processed data in the save_loc file)  
-  data_loc <- "~/1_Research/0_Misc/BSLE_Degradation_EEMs/RC3_DIT_CDOM"
+  data_loc <- "~/1_Research/0_Misc/BSLE_Degradation_EEMs/RC3_DBS_CDOM"
 
   #metadata for processing EEM's 
-  EEM_meta <- read.csv(file.path(data_loc, "RC3_DIT_CDOM_metadata.csv"))
+  EEM_meta <- read.csv(file.path(data_loc, "RC3_DBS_CDOM_metadata.csv"))
   
 #section 2: add DOC data to metadata  ------ 
   #remove flags from DOC data 
@@ -41,11 +42,6 @@ fix_na <- function(col){
   #make numeric 
     doc$NPOC_mg_C_per_L <- as.numeric(doc$NPOC_mg_C_per_L)
 
-  #sample DIT_06_FC2 has two values for DOC that are very different 
-    #we're not really sure why, but we're using the higher value, set other to NA
-    doc$NPOC_mg_C_per_L[doc$Sample_ID == "DIT_06_FC2"][which.min(doc$NPOC_mg_C_per_L[doc$Sample_ID == "DIT_06_FC2"])] <- NA 
-    doc <- doc[is.na(doc$NPOC_mg_C_per_L)==F,]
-    
   #remove underscores to match EEM's data 
     doc$Sample_ID <- gsub("_", "", doc$Sample_ID)
   
@@ -59,11 +55,11 @@ fix_na <- function(col){
     EEM_meta <- EEM_meta %>% select(-NPOC_mg_C_per_L)
     
   #save meta file
-    write_csv(EEM_meta, file.path(data_loc, "RC3_DIT_CDOM_metadata.csv"))
+    write_csv(EEM_meta, file.path(data_loc, "RC3_DBS_CDOM_metadata.csv"))
         
 #section 3: process data with DOC data ------ 
   #since there's a lot of samples this step can take a few minutes
-  run_eems(data_loc, meta_name="RC3_DIT_CDOM_metadata.csv",
+  run_eems(data_loc, meta_name="RC3_DBS_CDOM_metadata.csv",
              rayleigh_width="manual", rayleigh_mask = c(20, 10, 12, 10),
              sum_plot=F) #sum_plot removes the summary plot, which is useless with this many samples 
     
@@ -74,7 +70,7 @@ fix_na <- function(col){
       df <- fread(file.path(data_loc, "5_Processed", x), header =T)
       colnames(df)[1] <- "wavelength"
       new_name <- paste0(substr(x, 1,3), "_", substr(x, 4,5),"_",substr(x, 6,8), "_", substr(x,10,11), "_DilCorr_IFE_RamNorm.csv")
-      fwrite(df, file.path("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DIT", save_loc, "Fluorescence", new_name), na="NA")
+      fwrite(df, file.path("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DBS", save_loc, "Fluorescence", new_name), na="NA")
     }  
 
     #save absorbance data individually in processed data folder
@@ -87,14 +83,14 @@ fix_na <- function(col){
     for(y in 1:ncol(absorb)){
         df <- data.frame(wavelength=wave, absorbance_dil_corr=as.numeric(absorb[,y]))
         file <- new_name[y]
-        write_csv(df, file.path("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DIT", save_loc, "Absorbance", file))
+        write_csv(df, file.path("C:/Users/russ143/PNNL/Core Richland and Sequim Lab-Field Team - Data Generation and Files/RC3/02_Processed_data_by_activity_and_analysis/DBS", save_loc, "Absorbance", file))
       }
     
   #tidy indices file 
-    fluor_index <- read_excel(file.path(data_loc, "5_Processed/SpectralIndices_RC3_DIT_CDOM.xlsx"), 
+    fluor_index <- read_excel(file.path(data_loc, "5_Processed/SpectralIndices_RC3_DBS_CDOM.xlsx"), 
                               sheet = "fluor_indices_DOC")
     
-    abs_index <- read_excel(file.path(data_loc, "5_Processed/SpectralIndices_RC3_DIT_CDOM.xlsx"), 
+    abs_index <- read_excel(file.path(data_loc, "5_Processed/SpectralIndices_RC3_DBS_CDOM.xlsx"), 
                               sheet = "abs_indices")
 
     #replace any blanks with -9999 
@@ -112,14 +108,11 @@ fix_na <- function(col){
     indices <- fluor_index %>% left_join(abs_index, by="sample")
     
     #save in processed folder
-    write_csv(indices, "EEM/DIT_CDOM_Indices_DOCnorm.csv")
+    write_csv(indices, "EEM/DBS_CDOM_Indices_DOCnorm.csv")
     
 #section 4: make plots of indices ------ 
     #read index file 
-      indices <- read_csv("EEM/DIT_CDOM_Indices_DOCnorm.csv")
-    
-    #sample DIT_06_FC2 duplicated in metadata/ missing DIT_06_FC3 
-      meta <- meta[!(meta$Sample_ID == "DIT_06_FC2" & meta$Replicate_number == 3),]
+      indices <- read_csv("EEM/DBS_CDOM_Indices_DOCnorm.csv")
     
     #merge with metadata 
       #get sample 
@@ -127,8 +120,6 @@ fix_na <- function(col){
                                       sample = substr(sample, 1,10)) %>% 
           left_join(meta, by=c("sample" = "Sample_ID"))
         
-        #missing DIT_02_FC2 and DIT_05_SL1 in CDOM dataset [checked and not in raw data]
-    
     #make treatment a factor to organize nicely 
       indices$Treatment <- factor(indices$Treatment, 
                                   levels=c("Saltwater_control","Mixture_control","Freshwater_control",
@@ -155,78 +146,3 @@ fix_na <- function(col){
                                                               "Replicate_number"))]
       sapply(metrics, plot_dit)
       
-
-#section 5: make specific plots of indices ------ 
-  #get index data and tidy for plotting 
-      #read index file 
-      indices <- read_csv("EEM/DIT_CDOM_Indices_DOCnorm.csv")
-      
-      #sample DIT_06_FC2 duplicated in metadata/ missing DIT_06_FC3 
-      meta <- meta[!(meta$Sample_ID == "DIT_06_FC2" & meta$Replicate_number == 3),]
-      
-      #merge with metadata 
-      #get sample 
-      indices <- indices %>% mutate(int_time = substr(sample, 12,12),
-                                    sample = substr(sample, 1,10)) %>% 
-        left_join(meta, by=c("sample" = "Sample_ID"))
-      
-      #missing DIT_02_FC2 and DIT_05_SL1 in CDOM dataset [checked and not in raw data]
-      
-      #make treatment a factor to organize nicely 
-      indices$Treatment <- factor(indices$Treatment, 
-                                  levels=c("Saltwater_control","Mixture_control","Freshwater_control",
-                                           "Salwater_leachate", "Mixture_leachate", "Freshwater_leachate"),
-                                  ordered = T,
-                                  labels= c("Saltwater Control", "Mixture Control", "Freshwater Control",
-                                            "Saltwater Leachate", "Mixture Leachate", "Freshwater Leachate"))
-    
-  #BIX 
-    index <- "BIX"
-    plot_data <- indices %>% select(any_of(c("Treatment","Day", index))) %>%
-          rename("metric" = index) %>% group_by(Treatment, Day) %>% 
-          summarise(mean = mean(metric),
-                    sd = sd(metric))
-        
-    p1 <- ggplot(plot_data,aes(x=Day, y=mean)) + geom_point() + 
-          geom_errorbar(aes(ymin=(mean-sd), ymax=(mean+sd)), width=0) + 
-          facet_wrap(~Treatment) + 
-          labs(x="Day", y="Biological Index (BIX)") + 
-          scale_y_continuous(limits=c(0.6,1.1))
-        
-        png(paste0("~/1_Research/0_Misc/BSLE_Degradation_EEMs/rcsfa-RC3-BSLE-DIT-degradation/plots/DIT_",index,".png"), res=300, height = 15, width=20, units="cm")
-        print(p1)
-        dev.off()
-        
-  #HIX_ohno 
-        index <- "HIX_ohno"
-        plot_data <- indices %>% select(any_of(c("Treatment","Day", index))) %>%
-          rename("metric" = index) %>% group_by(Treatment, Day) %>% 
-          summarise(mean = mean(metric),
-                    sd = sd(metric))
-        
-        p1 <- ggplot(plot_data,aes(x=Day, y=mean)) + geom_point() + 
-          geom_errorbar(aes(ymin=(mean-sd), ymax=(mean+sd)), width=0) + 
-          facet_wrap(~Treatment) + 
-          labs(x="Day", y="Humification Index (Ohno)") + 
-          scale_y_continuous(limits=c(0,1))
-        
-        png(paste0("~/1_Research/0_Misc/BSLE_Degradation_EEMs/rcsfa-RC3-BSLE-DIT-degradation/plots/DIT_",index,".png"), res=300, height = 15, width=20, units="cm")
-        print(p1)
-        dev.off()
-  #SR
-        index <- "SR"
-        plot_data <- indices %>% select(any_of(c("Treatment","Day", index))) %>%
-          rename("metric" = index) %>% group_by(Treatment, Day) %>% 
-          summarise(mean = mean(metric),
-                    sd = sd(metric))
-        
-        p1 <- ggplot(plot_data,aes(x=Day, y=mean)) + geom_point() + 
-          geom_errorbar(aes(ymin=(mean-sd), ymax=(mean+sd)), width=0) + 
-          facet_wrap(~Treatment) + 
-          labs(x="Day", y="Spectral Ratio") + 
-          scale_y_continuous(limits=c(0.4,1.5))
-        
-        png(paste0("~/1_Research/0_Misc/BSLE_Degradation_EEMs/rcsfa-RC3-BSLE-DIT-degradation/plots/DIT_",index,".png"), res=300, height = 15, width=20, units="cm")
-        print(p1)
-        dev.off()
-        
